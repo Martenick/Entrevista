@@ -1,0 +1,70 @@
+﻿@model Entrevista.Models.Livros
+
+@{
+    ViewBag.Title = "Detalhes do Livro";
+}
+
+<h2>Detalhes do Livro @Html.DisplayFor(model => model.NomeLivros)</h2>
+
+<div> 
+    <h4>Livro</h4>
+    <hr />
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ISBNLivros)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ISBNLivros)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AutorLivros)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AutorLivros)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NomeLivros)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NomeLivros)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ValorLivros)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ValorLivros)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DataPublicacaoLivros)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DataPublicacaoLivros)
+            </dd>
+
+        </dl>
+        <p>
+            @Html.ActionLink("Editar", "Edit", new { id = Model.LivrosID }, new { @class = "btn btn-warning" }) |
+            @Html.ActionLink("Retornar", "Index", new { }, new { @class = "btn btn-success" })
+        </p>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @if (!string.IsNullOrEmpty(Model.ImagemCapaLivros))
+                {
+                    <img src="@Url.Content(Model.ImagemCapaLivros)" alt="Image" style="width:240px;height:240px;max-width: 100%; height: auto;" />
+                }
+            </div>
+        </div>
+    </div>
+</div>

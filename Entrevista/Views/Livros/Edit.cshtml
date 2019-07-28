@@ -1,0 +1,145 @@
+﻿@model Entrevista.Models.Livros
+
+@{
+    ViewBag.Title = "Editar Livro";
+}
+
+<h2>Editar Livro @Html.DisplayFor(model => model.NomeLivros)</h2>
+
+@using (@Html.BeginForm(null, null, FormMethod.Post, new { id = "formatual", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Livro</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.LivrosID)
+        @Html.HiddenFor(model => model.ImagemCapaLivros)
+        @Html.HiddenFor(model => model.ValorLivros)
+
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ISBNLivros, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ISBNLivros, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ISBNLivros, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AutorLivros, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AutorLivros, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AutorLivros, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NomeLivros, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NomeLivros, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NomeLivros, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TextoValorLivros, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TextoValorLivros, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TextoValorLivros, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DataPublicacaoLivros, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("dataPublicacao", ViewBag.DataPublicacao as string)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ImagemCapaLivros, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <span class="btn btn-default btn-file">
+                        @Html.TextBoxFor(modelo => modelo.ImagemCapaLivrosFile, new { type = "file", id = "ImagemCapaFile" })
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Gravar" class="btn btn-primary" />
+                    @Html.ActionLink("Retornar", "Index", new { }, new { @class = "btn btn-success" })
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @if (!string.IsNullOrEmpty(Model.ImagemCapaLivros))
+                    {
+                        <img src="@Url.Content(Model.ImagemCapaLivros)" alt="Image" id="ImagemCapaJPG" style="width:240px;height:240px;max-width: 100%; height: auto;" />
+                    }
+                    else
+                    {
+                        <img src="@Url.Content("~/Content/Capas/0.jpg")" alt="Image" id="ImagemCapaJPG" style="width:240px;height:240px;max-width: 100%; height: auto;" />
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('form#formatual').keypress(function (e) {
+                if ((e.keyCode == 10) || (e.keyCode == 13)) {
+                    e.preventDefault();
+                }
+            });
+
+            $(document).on("change", "#ImagemCapaFile", function (e) {
+                showThumbnail(this.files);
+            });
+
+            function showThumbnail(files) {
+                if (files && files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#ImagemCapaJPG').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(files[0]);
+                }
+            }
+
+            $('body').on('keydown', 'input, select, textarea', function (e) {
+                var self = $(this)
+                    , form = self.parents('form:eq(0)')
+                    , focusable
+                    , next
+                    ;
+                if (e.keyCode == 13) {
+                    focusable = form.find('input,a,select,button,textarea').filter(':visible');
+                    next = focusable.eq(focusable.index(this) + 1);
+                    if (next.length) {
+                        next.focus();
+                    } else {
+                        form.submit();
+                    }
+                    return false;
+                }
+            });
+
+        });
+
+    </script>}
+

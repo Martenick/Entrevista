@@ -1,0 +1,77 @@
+﻿@model Entrevista.Models.Livros
+
+@{
+    ViewBag.Title = "Excluir Livro";
+}
+
+<h2>Excluir Livro @Html.DisplayFor(model => model.NomeLivros)</h2>
+ 
+<h3>Tem certeza que deseja excluir o livro @Html.DisplayFor(model => model.NomeLivros)?</h3>
+<div>
+    <h4>Livro</h4>
+    <hr />
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ISBNLivros)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ISBNLivros)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AutorLivros)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AutorLivros)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NomeLivros)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NomeLivros)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ValorLivros)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ValorLivros)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DataPublicacaoLivros)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DataPublicacaoLivros)
+            </dd>
+
+        </dl>
+
+        @using (@Html.BeginForm(null, null, FormMethod.Post, new { id = "formatual" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Excluir" class="btn btn-danger" /> |
+                @Html.ActionLink("Retornar", "Index", new { }, new { @class = "btn btn-success" })
+            </div>
+        }
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @if (!string.IsNullOrEmpty(Model.ImagemCapaLivros))
+                {
+                 <img src="@Url.Content(Model.ImagemCapaLivros)" alt="Image" style="width:240px;height:240px;max-width: 100%; height: auto;" />
+                }
+            </div>
+        </div>
+    </div>
+</div>

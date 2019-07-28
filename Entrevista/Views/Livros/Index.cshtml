@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Entrevista.Models.Livros>
+
+@{
+    ViewBag.Title = "Relação de Livros";
+}
+
+<h2>Relação de Livros</h2>
+
+<p>
+    @Html.ActionLink("Incluir Livro", "Create", new { }, new { @class = "btn btn-primary" })
+</p>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+@using (@Html.BeginForm("Index", "Livros", FormMethod.Get))
+{
+<p>
+    <b>Filtrar por Autor:</b> @Html.TextBox("BuscaAutor", ViewBag.FiltroAtual as string)
+    <b>&nbsp;Nome:</b> @Html.TextBox("BuscaNome", ViewBag.FiltroAtual as string)
+    <b>&nbsp;ISBN:</b> @Html.TextBox("BuscaISBN", ViewBag.FiltroAtual as string)
+    <input type="submit" value="Filtrar" class="btn btn-success" />
+    @Html.ActionLink("Limpar Filtro", "Index", new { ordem = "", filtroAtual = "", BuscaAutor = "", BuscaNome = "" }, new { @class = "btn btn-success" })<br />
+    <b>Preço até:</b> @Html.TextBox("BuscaValor", ViewBag.FiltroAtual as decimal?)
+    <b>&nbsp;&nbsp;&nbsp;Publicação:</b> @Html.TextBox("BuscaData", ViewBag.FiltroAtual as string)
+</p>
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("ISBN", "Index", new { ordem = ViewBag.OrdemISBN, filtroAtual = ViewBag.FiltroAtual })
+        </th>
+        <th>
+            @Html.ActionLink("Autor", "Index", new { ordem = ViewBag.OrdemAutor, filtroAtual = ViewBag.FiltroAtual })
+        </th>
+        <th>
+            @Html.ActionLink("Nome do Livro", "Index", new { ordem = ViewBag.OrdemNome, filtroAtual = ViewBag.FiltroAtual })
+        </th>
+        <th>
+            @Html.ActionLink("Preço", "Index", new { ordem = ViewBag.OrdemValor, filtroAtual = ViewBag.FiltroAtual })
+        </th>
+        <th>
+            @Html.ActionLink("Data de Publicação", "Index", new { ordem = ViewBag.OrdemData, filtroAtual = ViewBag.FiltroAtual })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImagemCapaLivros)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ISBNLivros)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AutorLivros)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeLivros)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValorLivros)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataPublicacaoLivros)
+        </td>
+        <td>
+            @if (!string.IsNullOrEmpty(item.ImagemCapaLivros))
+            {
+                <img src="@Url.Content(item.ImagemCapaLivros)" alt="Image" style="width:60px;height:60px;max-width: 100%; height: auto;" />
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.LivrosID }, new { @class = "btn btn-warning btn-xs" }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.LivrosID }, new { @class = "btn btn-info btn-xs" }) |
+            @Html.ActionLink("Excluir", "Delete", new { id = item.LivrosID }, new { @class = "btn btn-danger btn-xs" }) |
+        </td>
+    </tr>
+     }
+
+ </table>

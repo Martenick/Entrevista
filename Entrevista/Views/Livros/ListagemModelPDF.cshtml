@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Entrevista.Models.Livros>
+
+@{
+    ViewBag.Title = "Relação de Livros";
+}
+
+<h2>Relação de Livros</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            ISBN
+        </th>
+        <th>
+            Autor
+        </th>
+        <th>
+            Nome do Livro
+        </th>
+        <th>
+            Preço
+        </th>
+        <th>
+            Data de Publicação
+        </th>
+        <th>
+            Imagem da Capa
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ISBNLivros)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AutorLivros)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeLivros)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorLivros)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPublicacaoLivros)
+            </td>
+            <td>
+                @if (!string.IsNullOrEmpty(item.ImagemCapaLivros))
+                {
+                    <img src="@Url.Content(item.ImagemCapaLivros)" alt="Image" style="width:60px;height:60px;max-width: 100%; height: auto;" />
+                }
+            </td>
+        </tr>
+    }
+
+</table>
